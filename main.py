@@ -19,6 +19,12 @@ def main():
     cell3.draw(300, 300, 400, 400)
     cell4.draw(400, 400, 500, 500)
 
+    cell1.draw_move(cell3, False)
+    cell2.draw_move(cell3, False)
+    cell3.draw_move(cell4, False)
+    cell3.draw_move(cell4, True)
+
+
     win.wait_for_close()
 
 if __name__ == "__main__":
