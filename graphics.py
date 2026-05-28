@@ -1,4 +1,6 @@
-from tkinter import Tk, BOTH, Canvas
+from tkinter import Tk, BOTH, Canvas, Label
+import time
+
 
 class Window:
     def __init__(self, width, height):
@@ -10,9 +12,24 @@ class Window:
         self.__canvas.pack(fill=BOTH, expand=1)
         self.__running = False
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
+        self.start_time = 0
+        self.elapsed_time = 0
+        self.time_label = Label(
+            self.__root, 
+            text=f"Time elapsed: {self.start_time:0.4f}",
+            font=("Helvetica", 14, "bold"),
+            fg="black",
+            padx=20,
+            pady=10,
+            relief="raised",
+            borderwidth=5
+            )
+        self.time_label.place(x=500, y=675)
+        
 
     def redraw(self):
         self.__root.update_idletasks()
+        self.time_label.config(text=f"Time elapsed: {self.elapsed_time:0.4f}")
         self.__root.update()
 
     def wait_for_close(self):
@@ -25,6 +42,7 @@ class Window:
 
     def draw_line(self, line, fill_colour):
         line.draw(self.__canvas, fill_colour)
+        
 
 
 class Point():

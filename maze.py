@@ -12,6 +12,7 @@ class Maze():
         self.cell_size_x = cell_size_x
         self.cell_size_y = cell_size_y
         self.win = win
+        self.timer_on = False
         if seed is not None:
             random.seed(seed)
         self.__cells = []
@@ -44,6 +45,8 @@ class Maze():
     def __animate(self):
         if self.win != None:
             self.win.redraw()
+            if self.timer_on == True:
+                self.win.elapsed_time = time.perf_counter() - self.win.start_time
             time.sleep(0.05)
 
     def __break_entrance_and_exit(self):
@@ -94,6 +97,8 @@ class Maze():
                 j.visited = False
         
     def solve(self):
+        self.timer_on = True
+        self.win.start_time = time.perf_counter()
         return self._solve_r(0, 0)
     
     def _solve_r(self, i, j):
