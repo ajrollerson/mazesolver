@@ -13,6 +13,7 @@ class Maze():
         self.cell_size_y = cell_size_y
         self.win = win
         self.timer_on = False
+        self.direction = None
         if seed is not None:
             random.seed(seed)
         self.__cells = []
@@ -99,9 +100,9 @@ class Maze():
     def solve(self):
         self.timer_on = True
         self.win.start_time = time.perf_counter()
-        return self._solve_r(0, 0)
+        return self._solve_dh_dfs(0, 0)
     
-    def _solve_r(self, i, j):
+    def _solve_dfs(self, i, j):
         self.__cells[i][j].visited = True
         self.__animate()
         if i == self.num_cols - 1 and j == self.num_rows - 1:
@@ -109,30 +110,161 @@ class Maze():
         
         if i > 0 and not self.__cells[i - 1][j].visited and not self.__cells[i][j].has_left_wall:
             self.__cells[i][j].draw_move(self.__cells[i - 1][j])
-            if self._solve_r(i - 1, j):
+            if self._solve_dfs(i - 1, j):
                 return True
             else:
                 self.__cells[i][j].draw_move(self.__cells[i - 1][j], undo=True)
         
         if i < self.num_cols - 1 and not self.__cells[i + 1][j].visited and not self.__cells[i][j].has_right_wall:
             self.__cells[i][j].draw_move(self.__cells[i + 1][j])
-            if self._solve_r(i + 1, j):
+            if self._solve_dfs(i + 1, j):
                 return True
             else:
                 self.__cells[i][j].draw_move(self.__cells[i + 1][j], undo=True)
 
         if j > 0 and not self.__cells[i][j - 1].visited and not self.__cells[i][j].has_top_wall:
             self.__cells[i][j].draw_move(self.__cells[i][j - 1])
-            if self._solve_r(i, j - 1):
+            if self._solve_dfs(i, j - 1):
                 return True
             else:
                 self.__cells[i][j].draw_move(self.__cells[i][j - 1], undo=True)
 
         if j < self.num_rows - 1 and not self.__cells[i][j + 1].visited and not self.__cells[i][j].has_bottom_wall:
             self.__cells[i][j].draw_move(self.__cells[i][j + 1])
-            if self._solve_r(i, j + 1):
+            if self._solve_dfs(i, j + 1):
                 return True
             else:
                 self.__cells[i][j].draw_move(self.__cells[i][j + 1], undo=True)
+
+    def _solve_dh_dfs(self, i, j):
+        self.__animate()
+        if i == self.num_cols - 1 and j == self.num_rows - 1:
+            return True
+    
+        if self.direction is None:
+            if i < self.num_cols - 1 and not self.__cells[i][j].has_right_wall:
+                self.__cells[i][j].draw_move(self.__cells[i + 1][j])
+                self.direction = "West"
+                if self._solve_dh_dfs(i + 1, j):
+                    return True
+        
+            elif j < self.num_rows - 1 and not self.__cells[i][j].has_bottom_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j + 1])
+                self.direction = "South"
+                if self._solve_dh_dfs(i, j + 1):
+                    return True
+        
+            elif i > 0 and not self.__cells[i][j].has_left_wall:
+                self.__cells[i][j].draw_move(self.__cells[i - 1][j])
+                self.direction = "East"
+                if self._solve_dh_dfs(i - 1, j):
+                    return True
+            
+            elif j > 0 and not self.__cells[i][j].has_top_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j - 1])
+                self.direction = "North"
+                if self._solve_dh_dfs(i, j - 1):
+                    return True
+                
+        if self.direction == "West":
+            if j > 0 and not self.__cells[i][j].has_top_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j - 1])
+                self.direction = "North"
+                if self._solve_dh_dfs(i, j - 1):
+                    return True
+                
+            elif i < self.num_cols - 1 and not self.__cells[i][j].has_right_wall:
+                self.__cells[i][j].draw_move(self.__cells[i + 1][j])
+                self.direction = "West"
+                if self._solve_dh_dfs(i + 1, j):
+                    return True
+        
+            elif j < self.num_rows - 1 and not self.__cells[i][j].has_bottom_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j + 1])
+                self.direction = "South"
+                if self._solve_dh_dfs(i, j + 1):
+                    return True
+        
+            elif i > 0 and not self.__cells[i][j].has_left_wall:
+                self.__cells[i][j].draw_move(self.__cells[i - 1][j])
+                self.direction = "East"
+                if self._solve_dh_dfs(i - 1, j):
+                    return True
+            
+
+        if self.direction == "South":      
+            if i < self.num_cols - 1 and not self.__cells[i][j].has_right_wall:
+                self.__cells[i][j].draw_move(self.__cells[i + 1][j])
+                self.direction = "West"
+                if self._solve_dh_dfs(i + 1, j):
+                    return True
+        
+            elif j < self.num_rows - 1 and not self.__cells[i][j].has_bottom_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j + 1])
+                self.direction = "South"
+                if self._solve_dh_dfs(i, j + 1):
+                    return True
+        
+            elif i > 0 and not self.__cells[i][j].has_left_wall:
+                self.__cells[i][j].draw_move(self.__cells[i - 1][j])
+                self.direction = "East"
+                if self._solve_dh_dfs(i - 1, j):
+                    return True
+            
+            elif j > 0 and not self.__cells[i][j].has_top_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j - 1])
+                self.direction = "North"
+                if self._solve_dh_dfs(i, j - 1):
+                    return True
+
+        if self.direction == "East":   
+            if j < self.num_rows - 1 and not self.__cells[i][j].has_bottom_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j + 1])
+                self.direction = "South"
+                if self._solve_dh_dfs(i, j + 1):
+                    return True
+        
+            elif i > 0 and not self.__cells[i][j].has_left_wall:
+                self.__cells[i][j].draw_move(self.__cells[i - 1][j])
+                self.direction = "East"
+                if self._solve_dh_dfs(i - 1, j):
+                    return True
+            
+            elif j > 0 and not self.__cells[i][j].has_top_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j - 1])
+                self.direction = "North"
+                if self._solve_dh_dfs(i, j - 1):
+                    return True 
+            
+            elif i < self.num_cols - 1 and not self.__cells[i][j].has_right_wall:
+                self.__cells[i][j].draw_move(self.__cells[i + 1][j])
+                self.direction = "West"
+                if self._solve_dh_dfs(i + 1, j):
+                    return True
+                
+        if self.direction == "North":
+            if i > 0 and not self.__cells[i][j].has_left_wall:
+                self.__cells[i][j].draw_move(self.__cells[i - 1][j])
+                self.direction = "East"
+                if self._solve_dh_dfs(i - 1, j):
+                    return True
+                
+            elif j > 0 and not self.__cells[i][j].has_top_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j - 1])
+                self.direction = "North"
+                if self._solve_dh_dfs(i, j - 1):
+                    return True 
+            
+            elif i < self.num_cols - 1 and not self.__cells[i][j].has_right_wall:
+                self.__cells[i][j].draw_move(self.__cells[i + 1][j])
+                self.direction = "West"
+                if self._solve_dh_dfs(i + 1, j):
+                    return True
+                
+            elif j < self.num_rows - 1 and not self.__cells[i][j].has_bottom_wall:
+                self.__cells[i][j].draw_move(self.__cells[i][j + 1])
+                self.direction = "South"
+                if self._solve_dh_dfs(i, j + 1):
+                    return True
 
         

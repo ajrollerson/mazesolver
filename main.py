@@ -9,6 +9,7 @@ def main():
     maze = Maze(100, 100, 10, 20, 50, 50, win)
 
     maze.solve()
+    
 
     win.wait_for_close()
 
