@@ -13,23 +13,36 @@ class Window:
         self.__running = False
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
         self.start_time = 0
-        self.elapsed_time = 0
-        self.time_label = Label(
+        self.dfs_elapsed_time = 0
+        self.dh_dfs_elapsed_time = 0
+        self.dfs_time_label = Label(
             self.__root, 
             text=f"Time elapsed: {self.start_time:0.4f}",
             font=("Helvetica", 14, "bold"),
-            fg="black",
+            fg="red",
             padx=20,
             pady=10,
             relief="raised",
             borderwidth=5
             )
-        self.time_label.place(x=500, y=675)
+        self.dh_dfs_time_label = Label(
+            self.__root, 
+            text=f"Time elapsed: {self.start_time:0.4f}",
+            font=("Helvetica", 14, "bold"),
+            fg="blue",
+            padx=20,
+            pady=10,
+            relief="raised",
+            borderwidth=5
+            )
+        self.dfs_time_label.place(x=250, y=675)
+        self.dh_dfs_time_label.place(x=700, y=675)
         
 
     def redraw(self):
         self.__root.update_idletasks()
-        self.time_label.config(text=f"Time elapsed: {self.elapsed_time:0.4f}")
+        self.dfs_time_label.config(text=f"DFS Time elapsed: {self.dfs_elapsed_time:0.4f}")
+        self.dh_dfs_time_label.config(text=f"DH DFS Time elapsed: {self.dh_dfs_elapsed_time:0.4f}")
         self.__root.update()
 
     def wait_for_close(self):
@@ -109,7 +122,7 @@ class Cell():
                 bottom_wall = Line(Point(self.__x1, self.__y2), Point(self.__x2, self.__y2))
                 self.__win.draw_line(bottom_wall, "white")
         
-    def draw_move(self, to_cell, undo=False):
+    def draw_move(self, to_cell, color, undo=False):
         if self.__win != None:
             self_x = (self.__x1 + self.__x2) // 2
             self_y = (self.__y1 + self.__y2) // 2
@@ -117,6 +130,7 @@ class Cell():
             to_cell_y = (to_cell.__y1 + to_cell.__y2) // 2
             to_line = Line(Point(self_x, self_y), Point(to_cell_x, to_cell_y))
             if not undo:
-                self.__win.draw_line(to_line, "red")
+                self.__win.draw_line(to_line, color)
             else:
                 self.__win.draw_line(to_line, "gray")
+
