@@ -14,17 +14,17 @@ Maze Solver is a Python application that generates and solves random mazes using
 - unittest
 
 ## Demo
-### Maze Runner Demonstration
+### Maze Solver Demonstration
 
 Demonstration comparing the DFS and Directional Heuristic DFS algorithms with live performance timers.
 
-![Maze Runner demonstration](data/mazerunner_demo.gif)
+![Maze Solver demonstration](data/mazesolver_demo.gif)
 
 ## Quick Start
 ### Clone the Repository
 ```bash
-git clone https://github.com/ajrollerson/mazerunner
-cd mazerunner
+git clone https://github.com/ajrollerson/mazesolver
+cd mazesolver
 ```
 
 ### Run the Test Suite
