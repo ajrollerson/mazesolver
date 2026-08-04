@@ -1,45 +1,69 @@
-Readme –  Maze solver
+# Maze solver
+Maze Solver is a Python application that generates and solves random mazes using Depth-First Search (DFS). The project began as a guided Boot.dev assignment before being extended to compare multiple maze-solving strategies through real-time visualisation and performance metrics.
 
-Maze Solver is a small Python project that generates and solves random mazes using a Depth-First Search (DFS) algorithm. Built as part of a Boot.dev guided project, it was extended to support experimentation and comparison between multiple maze-solving strategies through visualisation and timing metrics.
-Key skills and knowledge developed: 
+## Technical Highlights
+- Recursive algorithm implementation using Depth-First Search
+- Comparative visualisation of multiple solving strategies
+- Real-time performance metrics integrated into the animation loop
+- State management across Maze and Window classes
+- Object-oriented GUI architecture
 
-•	Algorithmic design and implementation.
-•	Added and managed dynamic UI elements. 
-•	Integrated live timers into an existing animation loop. 
-•	Added comparative visualisation between algorithms. 
-•	Managed state between the Maze and Window classes.
+## Tech Stack
+- Python
+- tkinter
+- unittest
 
-Key features:
+## Demo
+### Maze Runner Demonstration
 
-The guided project initially provided the following functionality:
+Demonstration comparing the DFS and Directional Heuristic DFS algorithms with live performance timers.
 
-- Maze generation and randomisation.
-- A DFS maze solver algorithm.
-- A small testing suite.
-- 
-Personal additions made that enhance the base project:
+![Maze Runner demonstration](data/mazerunner_demo.gif)
 
-- Implemented a Directional Heuristic DFS algorithm (DH DFS), which uses direction-dependent wall checking priorities to influence traversal behaviour.
-- Integrated independent timing systems into the graphical simulation, managing timer state across the Window and Maze classes to synchronise live GUI updates with algorithm execution and enable comparative performance visualisation.
+## Quick Start
+### Clone the Repository
+```bash
+git clone https://github.com/ajrollerson/mazerunner
+cd mazerunner
+```
 
-Known limitations:
+### Run the Test Suite
+```bash
+python3 tests.py
+```
 
-•	Some elements have been hardcoded for the timer and the graphical elements.
-•	Testing suite is somewhat limited, and no tests currently exist to provide feedback on the functioning of the algorithms.
+### Run the Application
+```bash
+python3 main.py
+```
 
-Design choices:
+## Key Features
+### Core Functionality
+- Generate random mazes
+- Solve mazes using Depth-First Search
+- Validate core functionality with automated tests
 
-•	I chose to add two timers with their own colours onto the window and have both algorithms run on top of each other. Had considered ‘resetting’ the maze, though the scope of doing was quite large for the size of the project. By having both algorithms and timers on screen, it would provide an immediate comparison on the performance of each algorithm.
+### Independent Extensions
+- Implemented a Directional Heuristic DFS (DH DFS) algorithm
+- Integrated independent timing systems into the graphical simulation
 
-•	Initially attempted to implement a right-hand-rule heuristic. Investigation revealed that a simple wall-following approach was insufficient within the existing recursive architecture, leading to the development of the Directional Heuristic DFS approach.
+## Design Choices
+### Real-Time Performance Visualisation
+Two independently timed solvers were displayed simultaneously to enable immediate visual comparison between algorithms. Although resetting the maze between runs was considered, doing so would have significantly increased the scope of the project while providing less direct comparison.
 
-•	During development of the directional heuristic solver, significant debugging was required to diagnose infinite loops and oscillation between cells. Substantial logging and tracing were used to identify problematic traversal behaviour, leading to the introduction of direction-based state to prevent oscillation and guide traversal decisions.
+### Directional Heuristic DFS algorithm (DH DFS)
+Initially attempted to implement a right-hand-rule heuristic. Investigation revealed that a simple wall-following approach was insufficient within the existing recursive architecture, leading to the development of the Directional Heuristic DFS approach.
 
-Observation:
+During development of the directional heuristic solver, significant debugging was required to diagnose infinite loops and oscillation between cells. Substantial logging and tracing were used to identify problematic traversal behaviour, leading to the introduction of direction-based state to prevent oscillation and guide traversal decisions.
 
-•	In most trials, the DFS algorithm outperforms the DH DFS algorithm, except when the maze happens to have a path that quickly leads to the exit, with few branching paths elsewhere.
+### Algorithm Behaviour
+In most randomly generated mazes, the standard DFS algorithm outperforms the Directional Heuristic DFS algorithm. The heuristic performs best when the maze layout aligns with its traversal priorities and contains relatively few competing branches.
 
-Future improvements:
+## Known Limitations
+- Some timer positions and graphical elements are currently hardcoded.
+- Automated test coverage is currently limited and does not include the maze-solving algorithms.
 
-•	Expand the testing suite to validate algorithm behaviour and performance.
-•	Refactor the DH DFS algorithm to reduce verbosity and improve maintainability.
+## Future Improvements
+- Expand the testing suite to validate algorithm behaviour and performance.
+- Refactor the DH DFS algorithm to reduce verbosity and improve maintainability.
+- Implement additional maze-solving algorithms for broader performance comparison.
