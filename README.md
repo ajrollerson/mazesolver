@@ -23,7 +23,7 @@ Demonstration comparing the DFS and Directional Heuristic DFS algorithms with li
 ## Quick Start
 ### Clone the Repository
 ```bash
-git clone https://github.com/ajrollerson/mazesolver
+git clone https://github.com/ajrollerson/mazesolver.git
 cd mazesolver
 ```
 
