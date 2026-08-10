@@ -60,8 +60,8 @@ During development of the directional heuristic solver, significant debugging wa
 In most randomly generated mazes, the standard DFS algorithm outperforms the Directional Heuristic DFS algorithm. The heuristic performs best when the maze layout aligns with its traversal priorities and contains relatively few competing branches.
 
 ## Known Limitations
-- Some timer positions and graphical elements are currently hardcoded.
-- Automated test coverage is currently limited and does not include the maze-solving algorithms.
+- Some timer positions and graphical elements are currently hardcoded
+- Automated test coverage is currently limited and does not include the maze-solving algorithms
 
 ## Future Improvements
 - Expand the testing suite to validate algorithm behaviour and performance.
