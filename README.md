@@ -21,6 +21,7 @@ Demonstration comparing the DFS and Directional Heuristic DFS algorithms with li
 ![Maze Solver demonstration](data/mazesolver_demo.gif)
 
 ## Quick Start
+The following commands assume a Bash/WSL environment.
 ### Clone the Repository
 ```bash
 git clone https://github.com/ajrollerson/mazesolver.git
