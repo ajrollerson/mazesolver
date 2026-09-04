@@ -1,10 +1,10 @@
 # Maze solver
-Maze Solver is a Python application that generates and solves random mazes using Depth-First Search (DFS). The project began as a guided Boot.dev assignment before being extended to compare multiple maze-solving strategies through real-time visualisation and performance metrics.
+Maze Solver is a Python application that generates and solves random mazes using Depth-First Search (DFS). The project began as a guided Boot.dev assignment before being extended to compare multiple maze-solving strategies through real-time visualisation and execution timing.
 
 ## Technical Highlights
 - Recursive algorithm implementation using Depth-First Search
 - Comparative visualisation of multiple solving strategies
-- Real-time performance metrics integrated into the animation loop
+- Real-time execution timing integrated into the animation loop
 - State management across Maze and Window classes
 - Object-oriented GUI architecture
 
@@ -16,7 +16,7 @@ Maze Solver is a Python application that generates and solves random mazes using
 ## Demo
 ### Maze Solver Demonstration
 
-Demonstration comparing the DFS and Directional Heuristic DFS algorithms with live performance timers.
+Demonstration comparing the DFS and Directional Heuristic DFS algorithms with live execution timing.
 
 ![Maze Solver demonstration](data/mazesolver_demo.gif)
 
@@ -49,7 +49,7 @@ python3 main.py
 - Integrated independent timing systems into the graphical simulation
 
 ## Design Choices
-### Real-Time Performance Visualisation
+### Real-Time Execution Timing
 Two independently timed solvers were displayed simultaneously to enable immediate visual comparison between algorithms. Although resetting the maze between runs was considered, doing so would have significantly increased the scope of the project while providing less direct comparison.
 
 ### Directional Heuristic DFS algorithm (DH DFS)
